@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang=en>
+  <head>
+    <meta charset=utf-8>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AES Encryption & Decryption Tool</title>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="https://use.fontawesome.com/5bd932b085.js"></script>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row"><!-- logo/navbar, if we want to include it in future -->
+      </div>
+      <div class="row text-center">
+        <div class="col-lg-12">
+          <h1>AES-CBC Encryption Tool</h1>
+          <div class="container">
+            <div class="row">
+              <div id="left-form" class="col-sm-5 col-lg-5 text-right">
+                <h4 class="text-left form-heading">Plaintext</h4>
+                <form id="encrypt" action="" method="post">
+                  <textarea id="plaintext" name="data"></textarea>
+                  <h4 class="text-left padding-tb">Key <i class="fa fa-info-circle" title="128-bit"></i></h4>
+                  <input type="text" id="plaintext-key" name="key">
+                  <input type="text" style="display: none;" id="dir1" value="e" name="direction">
+                </form>
+              </div>
+              <div class="col-sm-2 col-lg-2" id="buttons">
+                <button type="submit" form="encrypt" value="encrypt" class="btn btn-success">
+                  <i class="fa fa-arrow-right"></i>
+                </button><span class="hidden-xs-down"><br><br></span>
+                <button type="submit" form="decrypt" value="decrypt" class="btn btn-info">
+                  <i class="fa fa-arrow-left"></i>
+                </button>
+              </div>
+              <div id="right-form" class="col-sm-5 col-lg-5 text-left">
+                <h4 class="text-right form-heading">AES-CBC Ciphertext</h4>
+                <form id="decrypt" action="" method="post">
+                  <textarea name="data" id="ciphertext"></textarea>
+                  <h4 class="text-right padding-tb">Key</h4>
+                  <input type="text" id="ciphertext-key" name="key">
+                  <input type="text" style="display: none;" id="dir2" value="d" name="direction">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <div class="container text-center">
+        <span class="text-muted">Developed by Tylor Childers, Curtis Hiscock & Joe Knight</span>
+      </div>
+    </footer>
+  </body>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/custom.js"></script>
+</html>
