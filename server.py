@@ -68,7 +68,7 @@ def pad(s):
 
 def unpad(s):
     padByte = ord(s[-1])
-    if padByte > 16:
+    if padByte > 16 or padByte == 0:
         raise ValueError("Incorrect Padding Byte, greater than 16")
     for i in range(padByte):
         if ord(s[-(i+1)]) != padByte:
