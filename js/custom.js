@@ -1,7 +1,11 @@
 function renderHTML(response, direction){
+    if(typeof response === 'undefined' || !response) return;
     var arr = response.split('\'');
     var data = arr[3];
     if(arr[1] == "data"){
+        $("#plaintext").attr("placeholder","");
+        $("#ciphertext").css("border","2px solid #ccc");
+        $("#plaintext").css("border","2px solid #ccc");
         switch(direction){
             case 'e':
                 $("#ciphertext").val(data);
@@ -12,7 +16,14 @@ function renderHTML(response, direction){
         }
     }
     else{ //padding error
-        alert(data);
+        //alert(data);
+        if(direction='d'){
+            $("#ciphertext").css("border","2px solid #f10a0a");
+            $("#plaintext").css("border","2px solid #f10a0a");
+            $("#plaintext").val("");
+            $("#ciphertext").effect("pulsate", {times:3});
+            $("#plaintext").attr("placeholder",data);
+        }
     }
 
 }
@@ -74,5 +85,12 @@ $(document).ready(function() {
                 }
             });  
         }   
+    });
+    $('#clearAll').on('click',function(e){
+        e.preventDefault();
+        $('#ciphertext').val("");
+        $('#plaintext').val("");
+        $('#ciphertext-key').val("");
+        $('#plaintext-key').val("");
     });
 }); 

@@ -21,7 +21,7 @@
                 <h4 class="text-left form-heading">Plaintext</h4>
                 <form id="encrypt" action="" method="post">
                   <textarea id="plaintext" name="data"></textarea>
-                  <h4 class="text-left padding-tb">Key <i class="fa fa-info-circle" title="16, 24 or 32 bytes (characters)"></i></h4>
+                  <h4 class="text-left padding-tb">Key <i class="info-key fa fa-info-circle" title="16, 24 or 32 bytes (characters)"></i></h4>
                   <input type="text" id="plaintext-key" name="key">
                   <input type="text" style="display: none;" id="dir1" value="e" name="direction">
                 </form>
@@ -32,10 +32,13 @@
                 </button><span class="hidden-xs-down"><br><br></span>
                 <button type="submit" form="decrypt" value="decrypt" class="btn btn-info">
                   <i class="fa fa-arrow-left"></i>
+                </button><span class="hidden-xs-down"><br><br></span>
+                <button id="clearAll" class="btn btn-danger">
+                  <i class="fa fa-eraser"></i>
                 </button>
               </div>
               <div id="right-form" class="col-sm-5 col-lg-5 text-left">
-                <h4 class="text-right form-heading">AES-CBC Ciphertext</h4>
+                <h4 class="text-right form-heading">AES-CBC Ciphertext <i class="fa fa-info-circle" title="result is base64 encoded" style="text-align: right"></i></h4>
                 <form id="decrypt" action="" method="post">
                   <textarea name="data" id="ciphertext"></textarea>
                   <h4 class="text-right padding-tb">Key</h4>
@@ -50,10 +53,11 @@
     </div>
     <footer class="footer">
       <div class="container text-center">
-        <span class="text-muted">Developed by Tylor Childers, Curtis Hiscock & Joe Knight</span>
+        <span class="text-muted">Developed by Tylor Childers & Joe Knight</span>
       </div>
     </footer>
   </body>
   <script src="js/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
   <script src="js/custom.js"></script>
 </html>

@@ -33,7 +33,7 @@ input[type=text] {
     color: black;
 }
 #buttons{
-  padding-top:140px;
+  padding-top:110px;
 }
 .footer {
     padding-top:80px;
@@ -44,15 +44,15 @@ input[type=text] {
 .padding-tb{
     padding: 5px 0px;
 }
-.fa-info-circle{
+.info-key:hover{
+    color: #5CB85C;
+}
+.info-key{
     font-size: 14px !important;
     position: absolute !important;
     margin-top: 0px !important;
     left: 65px;
     color: #31B0D5;
-}
-.fa-info-circle:hover{
-    color: #5CB85C;
 }
 .text-muted{
     font-size: 1.05em;
