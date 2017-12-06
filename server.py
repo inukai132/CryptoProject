@@ -8,6 +8,12 @@ import json, base64
 iv = "SameIVisn'tgood."
 
 class CryptoHandler(BHS.BaseHTTPRequestHandler):
+
+    def address_string(self):
+        host, port = self.client_address[:2]
+        #return socket.getfqdn(host)
+        return host
+
     def _set_headers(self,code=200,mime='text/html'):
         self.send_response(code)
         self.send_header('Content-type',mime)
@@ -51,13 +57,17 @@ class CryptoHandler(BHS.BaseHTTPRequestHandler):
                 key = jData['key'][0]
                 cipher = base64.b64decode(jData['data'][0])
                 crypter = AES.new(key, AES.MODE_CBC, iv)
-                plain = unpad(crypter.decrypt(cipher))
-                jOut = json.dumps({'data':plain})
+                intermediate = crypter.decrypt(cipher)
+                plain = unpad(intermediate)
+                jOut = json.dumps({'data':plain}) # This line seems to be throwing an error on some strings
+                                                  # I was able to fix the issue by forcing it to use the b64 encoding,
+                                                  # but that obviously breaks the website output
                 self._set_headers(200,'application/json')
             else:
                 self._set_headers(404)
         except ValueError as ve:
             self._set_headers(500,'application/json')
+            #print ve.message
             jOut = json.dumps({'error':ve.message})
 
         self.wfile.write(json.loads(jOut))
@@ -68,7 +78,8 @@ def pad(s):
 
 def unpad(s):
     padByte = ord(s[-1])
-    if padByte > 16 or padByte == 0:
+    #print str(padByte)
+    if padByte == 0 or padByte > 16:
         raise ValueError("Incorrect Padding Byte, greater than 16")
     for i in range(padByte):
         if ord(s[-(i+1)]) != padByte:
