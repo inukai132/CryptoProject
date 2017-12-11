@@ -34,11 +34,12 @@
                   <i class="fa fa-arrow-left"></i>
                 </button><span class="hidden-xs-down"><br><br></span>
                 <button id="clearAll" class="btn btn-danger">
-                  <i class="fa fa-eraser"></i>
+                  <i class="fa fa-eraser" title="Clear All Fields"></i>
                 </button>
               </div>
               <div id="right-form" class="col-sm-5 col-lg-5 text-left">
-                <h4 class="text-right form-heading">AES-CBC Ciphertext <i class="fa fa-info-circle" title="result is base64 encoded" style="text-align: right"></i></h4>
+                <h6 class="hexToBase hidden-md-down"><a id="toHex">hex</a> | <a id="toBase">base64</a></h6>
+                <h4 id="right-heading" class="text-right form-heading">AES-CBC Ciphertext</h4>
                 <form id="decrypt" action="" method="post">
                   <textarea name="data" id="ciphertext"></textarea>
                   <h4 class="text-right padding-tb">Key</h4>

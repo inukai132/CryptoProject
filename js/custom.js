@@ -1,3 +1,32 @@
+/* utility functions */
+
+function exists(data){
+    if(data.length > 0) return true;
+    alert("Please enter text");
+    return false;
+}
+function validKey(key){
+    if(key.length == 16 || key.length == 24 || key.length == 32) return true;
+    alert("AES key must be either 16, 24, or 32 bytes long");
+    return false;
+}
+function base64toHEX(base64) {
+  var raw = atob(base64);
+  var HEX = '';
+  for (i = 0; i < raw.length; i++){
+    var _hex = raw.charCodeAt(i).toString(16)
+    HEX += (_hex.length==2?_hex:'0'+_hex);
+    HEX += ' ';
+  }
+  return HEX.toUpperCase();
+}
+function hexToBase64(hexstring) {
+    return btoa(hexstring.match(/\w{2}/g).map(function(a) {
+        return String.fromCharCode(parseInt(a, 16));
+    }).join(""));
+}
+
+/* interpreting and rendering response from server.py */
 function renderHTML(response, direction){
     if(typeof response === 'undefined' || !response) return;
     var arr = response.split('\'');
@@ -27,18 +56,33 @@ function renderHTML(response, direction){
     }
 
 }
-function exists(data){
-    if(data.length > 0) return true;
-    alert("Please enter text");
-    return false;
-}
-function validKey(key){
-    if(key.length == 16 || key.length == 24 || key.length == 32) return true;
-    alert("AES key must be either 16, 24, or 32 bytes long");
-    return false;
-}
+
+/* global variables */
+var isHex=false;
+var isBase=true;
+
 $(document).ready(function() {
+
+    /* toHex and toBase events */
+    $('#toHex').on('click', function(){
+        if(!isHex && isBase && $("#ciphertext").val() != ""){
+            $("#ciphertext").val(base64toHEX($("#ciphertext").val()));
+            isHex = true;
+            isBase = false; 
+        }
+    })
+    $('#toBase').on('click', function(){
+        if(isHex && !isBase && $("#ciphertext").val() != ""){
+            $("#ciphertext").val(hexToBase64($("#ciphertext").val()));
+            isBase = true;
+            isHex = false; 
+        }
+    })
+
+    /* encrypting */
     $('#encrypt').on('submit', function(e) {
+        isBase = true;
+        isHex = false;
         e.preventDefault();
         var data = $('#plaintext').val();
         var key = $('#plaintext-key').val();
@@ -62,7 +106,14 @@ $(document).ready(function() {
             });
         }
     });
+
+    /* decrypting */
     $('#decrypt').on('submit', function(e) {
+        if(isHex && !isBase){
+            $("#ciphertext").val(hexToBase64($("#ciphertext").val()));
+            isBase = true;
+            isHex = false; 
+        }
         e.preventDefault();
         var data = $('#ciphertext').val();
         var key = $('#ciphertext-key').val();
@@ -86,6 +137,8 @@ $(document).ready(function() {
             });  
         }   
     });
+
+    /* clear all button */
     $('#clearAll').on('click',function(e){
         e.preventDefault();
         $('#ciphertext').val("");
